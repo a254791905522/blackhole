@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy | Blackhole Growth Arena</title>
+    <meta name="description" content="Privacy information for Blackhole Growth Arena. Learn how the app handles data and your rights as a player.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Exo+2:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #010106;
+            color: #aabccf;
+            line-height: 1.75;
+            min-height: 100vh;
+            padding: 28px 20px 48px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 100% 60% at 0% 0%, rgba(255, 0, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 50% at 100% 100%, rgba(0, 240, 255, 0.07) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        nav {
+            margin-bottom: 28px;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #00e8f9;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 232, 249, 0.25);
+            background: rgba(0, 232, 249, 0.05);
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 79, 216, 0.1);
+            border-color: rgba(255, 79, 216, 0.35);
+            color: #ff8ee0;
+        }
+
+        header {
+            margin-bottom: 36px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        header .glyph {
+            font-size: 2.5rem;
+            line-height: 1;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.4));
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #f0f4ff;
+            margin-bottom: 10px;
+        }
+
+        header .game {
+            font-size: 0.95rem;
+            color: #ff6ec7;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        header .meta {
+            font-size: 0.85rem;
+            color: #6b7f99;
+        }
+
+        .void-banner {
+            padding: 22px 26px;
+            border-radius: 18px;
+            margin-bottom: 36px;
+            background: linear-gradient(135deg, rgba(0, 40, 50, 0.5) 0%, rgba(40, 0, 50, 0.35) 100%);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .void-banner h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #00f0ff;
+            margin-bottom: 10px;
+        }
+
+        .void-banner p {
+            color: #c5d8ec;
+            font-size: 1.02rem;
+            margin: 0;
+        }
+
+        dl.accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        details {
+            border-radius: 14px;
+            background: rgba(12, 10, 28, 0.85);
+            border: 1px solid rgba(123, 92, 255, 0.15);
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        details[open] {
+            border-color: rgba(0, 240, 255, 0.22);
+        }
+
+        summary {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #dce6f2;
+            padding: 18px 22px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            user-select: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            font-size: 1.1rem;
+            color: #00f0ff;
+            font-weight: 700;
+        }
+
+        details[open] summary::after {
+            content: "−";
+            color: #ff6ec7;
+        }
+
+        .detail-body {
+            padding: 0 22px 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .detail-body p {
+            margin-top: 14px;
+            color: #9eb4d0;
+        }
+
+        .detail-body p:first-child {
+            margin-top: 16px;
+        }
+
+        .detail-body ul {
+            margin: 14px 0 0 1.1rem;
+            color: #9eb4d0;
+        }
+
+        .detail-body li {
+            margin: 8px 0;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .chip {
+            font-size: 0.78rem;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255, 79, 216, 0.1);
+            border: 1px solid rgba(255, 79, 216, 0.2);
+            color: #e8b8dc;
+        }
+
+        .legal-strip {
+            margin-top: 40px;
+            padding: 24px;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px dashed rgba(0, 240, 255, 0.15);
+            font-size: 0.9rem;
+            color: #7a8ca3;
+        }
+
+        .legal-strip a {
+            color: #00d4e6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .legal-strip a:hover {
+            text-decoration: underline;
+            color: #ff8ee0;
+        }
+
+        .store-cta {
+            display: inline-block;
+            margin-top: 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #010106;
+            background: linear-gradient(90deg, #00f0ff, #ff4fd8);
+            padding: 14px 28px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+            transition: transform 0.2s;
+        }
+
+        .store-cta:hover {
+            transform: translateY(-2px);
+            color: #010106;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 0.82rem;
+            color: #4a5a70;
+        }
+
+        @media (max-width: 480px) {
+            summary {
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <nav>
+            <a href="index.html">← Arena Home</a>
+        </nav>
+
+        <header>
+            <div class="glyph" aria-hidden="true">◉</div>
+            <h1>Privacy Charter</h1>
+            <p class="game">Blackhole Growth Arena</p>
+            <p class="meta">Last updated: April 4, 2026 · Seller: Dipak Keshariya</p>
+        </header>
+
+        <div class="void-banner">
+            <h2>Data footprint</h2>
+            <p>According to the app’s App Store privacy label, the developer does not collect data from this app. This page explains what that means in plain language and how the game fits into your device.</p>
+        </div>
+
+        <dl class="accordion">
+            <details open>
+                <summary>Scope of this document</summary>
+                <div class="detail-body">
+                    <p>This charter describes privacy practices for the mobile game <strong>Blackhole Growth Arena</strong> distributed on the Apple App Store. It is meant for players and parents who want a clear read on data use. If anything here conflicts with Apple’s in-store disclosure, the App Store listing should be treated as the live source of truth.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>What we do not gather</summary>
+                <div class="detail-body">
+                    <p>The game is designed so the developer does not collect personal identifiers or behavioral profiles through the app. That typically means items such as the following are not harvested by the developer for this title:</p>
+                    <ul>
+                        <li>Name, email address, or account credentials created solely for this app</li>
+                        <li>Precise location or continuous location history tied to gameplay</li>
+                        <li>Advertising identifiers used to track you across companies’ apps and websites</li>
+                        <li>Contact lists, photos, or other sensitive phone libraries</li>
+                    </ul>
+                    <div class="chip-row">
+                        <span class="chip">No signup wall</span>
+                        <span class="chip">No data sale described</span>
+                        <span class="chip">4+ age band</span>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>Apple &amp; your device</summary>
+                <div class="detail-body">
+                    <p>Downloading and updating the game uses Apple’s platforms. Apple may process purchase, receipt, and device-related information according to <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple’s Privacy Policy</a>. Standard iOS protections and settings (Screen Time, parental controls, App Tracking Transparency where applicable) remain under your control outside this app.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Gameplay storage</summary>
+                <div class="detail-body">
+                    <p>Arcade titles often keep progress, preferences, or similar data locally on your iPhone so the experience feels instant. Unless a future version explicitly introduces cloud saves or online accounts, you should assume progress lives on-device and is removed if you delete the app, subject to how iOS handles backups.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Children</summary>
+                <div class="detail-body">
+                    <p>The game is rated 4+ on the App Store. Because the stated privacy posture is non-collection, there is no personal data pipeline described for child players within the app itself. Parents and guardians remain the best judges of screen time and device settings.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>International players</summary>
+                <div class="detail-body">
+                    <p>Privacy laws vary by country or region (for example GDPR in the European Economic Area or UK GDPR in the United Kingdom). This summary is informational and not legal advice. If you need formal legal wording, consult the developer’s official policy link on the store or a qualified professional.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Changes over time</summary>
+                <div class="detail-body">
+                    <p>If features change—such as adding online leaderboards, analytics, or ads—the developer may update App Store labels and publish a revised policy. Check the store page periodically; the “Last updated” line at the top of this page will change when this HTML copy is edited.</p>
+                </div>
+            </details>
+        </dl>
+
+        <div class="legal-strip">
+            <p><strong>Developer resources:</strong> More detail may appear on the developer’s site or blog policy referenced from the App Store. Official listing: <a href="https://apps.apple.com/us/app/blackhole-growth-arena/id6761482403?uo=4" target="_blank" rel="noopener noreferrer">Blackhole Growth Arena on the App Store</a>.</p>
+            <p style="margin-top: 12px;"><strong>Website:</strong> <a href="https://litzin.com/" target="_blank" rel="noopener noreferrer">litzin.com</a></p>
+            <a href="https://apps.apple.com/us/app/blackhole-growth-arena/id6761482403?uo=4" class="store-cta" target="_blank" rel="noopener noreferrer">View on App Store</a>
+        </div>
+
+        <footer>
+            &copy; 2026 Dipak Keshariya · Blackhole Growth Arena
+        </footer>
+    </div>
+</body>
+
+</html>

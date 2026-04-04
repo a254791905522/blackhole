@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackhole Growth Arena | Grow, Absorb, Dominate</title>
+    <meta name="description" content="Blackhole Growth Arena — a fast-paced arcade arena game. Consume objects, outsmart rivals, avoid bigger threats, and become the ultimate black hole champion. Free on the App Store.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #020208;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            overflow-x: hidden;
+            color: #c5d4e8;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% 120%, rgba(0, 240, 255, 0.12) 0%, transparent 55%),
+                radial-gradient(circle at 50% 45%, transparent 0%, #020208 72%),
+                radial-gradient(circle closest-side at 50% 42%, #0a0618 0%, transparent 100%),
+                conic-gradient(from 200deg at 50% 45%, rgba(255, 0, 170, 0.15), transparent, rgba(0, 200, 255, 0.12), transparent, rgba(255, 0, 170, 0.1));
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 8% 12%, rgba(255, 255, 255, 0.45) 0%, transparent 100%),
+                radial-gradient(1px 1px at 22% 78%, rgba(200, 230, 255, 0.35) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 88% 18%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 65% 55%, rgba(0, 255, 200, 0.25) 0%, transparent 100%),
+                radial-gradient(1px 1px at 40% 30%, rgba(255, 180, 255, 0.2) 0%, transparent 100%);
+            opacity: 0.7;
+            animation: twinkle 5s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.45; }
+            100% { opacity: 0.85; }
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        @keyframes drift {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            width: 100%;
+            padding: 48px 42px;
+            border-radius: 24px;
+            background: linear-gradient(165deg, rgba(8, 6, 22, 0.94) 0%, rgba(4, 3, 14, 0.97) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            box-shadow:
+                0 0 0 1px rgba(255, 0, 170, 0.06),
+                0 40px 100px rgba(0, 0, 0, 0.85),
+                0 0 80px rgba(0, 200, 255, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            text-align: center;
+        }
+
+        .horizon-wrap {
+            position: relative;
+            width: 132px;
+            height: 132px;
+            margin: 0 auto 28px;
+        }
+
+        .horizon-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background:
+                linear-gradient(#020208, #020208) padding-box,
+                conic-gradient(from 0deg, #ff00aa, #00f0ff, #7b5cff, #ff00aa) border-box;
+            animation: drift 18s linear infinite;
+        }
+
+        .horizon-core {
+            position: absolute;
+            inset: 18px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #1a1035 0%, #050208 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            box-shadow:
+                inset 0 0 40px rgba(0, 0, 0, 0.95),
+                0 0 28px rgba(0, 240, 255, 0.25);
+        }
+
+        .horizon-glow {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            animation: pulse-ring 3.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.65rem, 4.5vw, 2.35rem);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00f0ff 0%, #e8f4ff 35%, #ff4fd8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(0, 240, 255, 0.75);
+            margin-bottom: 14px;
+        }
+
+        .tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #ff6ec7;
+            text-shadow: 0 0 24px rgba(255, 0, 170, 0.35);
+            margin-bottom: 28px;
+            letter-spacing: 0.12em;
+        }
+
+        .description {
+            text-align: left;
+            line-height: 1.85;
+            font-size: 1.02rem;
+            color: #9eb4d0;
+            margin-bottom: 28px;
+        }
+
+        .description p {
+            margin-bottom: 14px;
+        }
+
+        .arena-panel {
+            text-align: left;
+            margin-bottom: 28px;
+            padding: 22px 24px;
+            border-radius: 16px;
+            background: rgba(0, 240, 255, 0.04);
+            border-left: 3px solid #00f0ff;
+            border-right: 1px solid rgba(255, 0, 170, 0.12);
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .arena-panel h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #00f0ff;
+            margin-bottom: 14px;
+        }
+
+        .arena-panel ol {
+            padding-left: 22px;
+            color: #a8bdd4;
+        }
+
+        .arena-panel li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .arena-panel li::marker {
+            color: #ff4fd8;
+            font-weight: 700;
+        }
+
+        .features {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .features h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ff6ec7;
+            margin-bottom: 16px;
+        }
+
+        .features ul {
+            list-style: none;
+        }
+
+        .features li {
+            padding: 11px 0 11px 36px;
+            position: relative;
+            color: #9eb4d0;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+            line-height: 1.55;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
+            box-shadow: 0 0 10px #00f0ff;
+        }
+
+        .app-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .info-item {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(123, 92, 255, 0.06);
+            border: 1px solid rgba(123, 92, 255, 0.12);
+        }
+
+        .info-item .label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #6b8aaf;
+            font-weight: 600;
+        }
+
+        .info-item .value {
+            color: #dce8f5;
+            font-weight: 600;
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+
+        .app-store-button {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #020208;
+            background: linear-gradient(135deg, #00f0ff 0%, #7b5cff 50%, #ff4fd8 100%);
+            padding: 16px 36px;
+            border-radius: 999px;
+            text-decoration: none;
+            border: none;
+            box-shadow:
+                0 0 40px rgba(0, 240, 255, 0.35),
+                0 12px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .app-store-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow:
+                0 0 55px rgba(255, 79, 216, 0.4),
+                0 16px 50px rgba(0, 0, 0, 0.55);
+            color: #020208;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 32px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            font-size: 0.88rem;
+            color: #5a6d85;
+        }
+
+        .footer a {
+            color: #00d4e6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            color: #ff6ec7;
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin: 6px 0;
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                padding: 32px 22px;
+            }
+
+            .app-info {
+                grid-template-columns: 1fr;
+            }
+
+            .horizon-wrap {
+                width: 108px;
+                height: 108px;
+            }
+
+            .horizon-core {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="horizon-wrap">
+            <div class="horizon-glow"></div>
+            <div class="horizon-ring"></div>
+            <div class="horizon-core" aria-hidden="true">⚫</div>
+        </div>
+        <h1>Blackhole Growth Arena</h1>
+        <p class="subtitle">Arcade · Arena · iPhone</p>
+        <p class="tagline">Grow · Absorb · Dominate</p>
+
+        <div class="description">
+            <p>Blackhole Growth Arena is a fast-paced arcade experience built around one simple thrill: grow by absorbing everything in your path, outsmart rivals, and avoid black holes that already dwarf you. Each match rewards reflexes, timing, and smart positioning as you climb from a tiny void to the dominant force on the field.</p>
+            <p>Use speed boosts and sharp movement to chase smaller targets, escape larger threats, and control the flow of the arena. Smooth controls and satisfying growth mechanics make every round easy to pick up and hard to put down—whether you are chasing a quick session or pushing for the top spot.</p>
+        </div>
+
+        <div class="arena-panel">
+            <h3>How the Arena Works</h3>
+            <ol>
+                <li>Start small and move through the arena consuming objects to grow.</li>
+                <li>Target smaller opponents while steering clear of larger black holes.</li>
+                <li>Grab speed boosts and use smart paths to outplay other players.</li>
+                <li>Survive longer, grow bigger, and aim to rule the arena.</li>
+            </ol>
+        </div>
+
+        <div class="features">
+            <h3>Why Play</h3>
+            <ul>
+                <li>High-energy arcade gameplay with dynamic growth mechanics</li>
+                <li>Strategic risk-reward: hunt, dodge, and time your power-ups</li>
+                <li>Polished movement and controls tuned for quick matches</li>
+                <li>Family-friendly 4+ experience — English language support</li>
+                <li>Free to download on the App Store for iPhone</li>
+            </ul>
+        </div>
+
+        <div class="app-info">
+            <div class="info-item">
+                <div class="label">Category</div>
+                <div class="value">Games</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Price</div>
+                <div class="value">Free</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Size</div>
+                <div class="value">23.7 MB</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Requires</div>
+                <div class="value">iOS 15.0 or later</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Age Rating</div>
+                <div class="value">4+</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Developer</div>
+                <div class="value">Dipak Keshariya</div>
+            </div>
+        </div>
+
+        <a href="https://apps.apple.com/us/app/blackhole-growth-arena/id6761482403?uo=4" class="app-store-button" target="_blank" rel="noopener noreferrer">
+            Get it on the App Store
+        </a>
+
+        <div class="footer">
+            <p><a href="privacy.html">Privacy Policy</a></p>
+            <p>Developer: <a href="https://litzin.com/" target="_blank" rel="noopener noreferrer">litzin.com</a></p>
+            <p>&copy; Dipak Keshariya</p>
+        </div>
+    </div>
+</body>
+
+</html>
